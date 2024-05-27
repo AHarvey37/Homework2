@@ -6,7 +6,7 @@ format: html
 editor: visual
 ---
 
-## Task 1: Basic Vector practice
+# Task 1: Basic Vector practice
 
 Suppose we have data from a medical experiment on blood pressure. We have the following pre-treatment values for subjects 1 through 20:
 
@@ -109,7 +109,7 @@ average_decrease_pos_reaction <- mean(new_results)
 average_decrease_pos_reaction
 ```
 
-## Task 2: Basic Data Frame practice
+# Task 2: Basic Data Frame practice
 
 Continue the previous example.
 
@@ -158,7 +158,7 @@ print(df)
 knitr::kable(df)
 ```
 
-## Task 3: List practice
+# Task 3: List practice
 
 Continue the previous example. Suppose we now also have data from another experiment where the 'treatment' was actually a placebo.
 
@@ -225,7 +225,7 @@ print(my_list$placebo["pre_bp"])
 
 ```
 
-## Task 4: Control Flow Practice
+# Task 4: Control Flow Practice
 
 Continue the previous example.
 
@@ -285,7 +285,7 @@ for (i in 1:10) {
 print(my_list$placebo[,c("post_bp", "status")])
 ```
 
-## Task 5: Function Writing
+# Task 5: Function Writing
 
 Continue the previous example. Suppose you would eventually have many data sets in the form of the two above. You want to write a function to do some things for you quickly.
 
