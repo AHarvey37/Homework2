@@ -18,6 +18,8 @@ after treatment, the subjects were measured again (subjects 1 through 20 match)
 
 1.  Create two vectors. One vector corresponding to the pre measurements and one to the post measurements.
 
+- **This code chunk will take the given measurements and will combine them into an appropriate vector using "c()".**
+
 ```{r Create two vectors}
 # Create first vector corresponding to first measurement
 measurement1 <- c(130, 128, 116, 124, 133, 134, 118, 126, 114, 127, 141, 138, 128, 140, 137, 131, 120, 128, 139, 135)
@@ -39,6 +41,8 @@ paste("Subject", 1:20, sep = "_")
 
 |   Create the same names for each vector's elements.
 
+- **This code chunk will use the R paste() function to assign names to the the previously created vectors.**
+
 ```{r Name the obsevations}
 #assign names to first measurement
 names(measurement1) <- paste("Subject", 1:20, sep = "_")
@@ -53,14 +57,18 @@ print(measurement2)
 
 3.  Calculate the change in blood pressure for each patient by subtracting post-treatment measurements from pre-treatment measurements. Recall the R does math elementwise! Save this calculation as a new object in R (also a vector).
 
+- **This chunk finds the difference between the Pre_bp and Post_bp, then stores it in a new vector.**
+
 ```{r post trement results}
 #create a new object "results" bu subtracting second measurement from first
-results <- measurement2 - measurement1
+results <- measurement1 - measurement2
 #check
 results
 ```
 
 4.  Calculate the average decrease in blood pressure across all patients.
+
+- **This chunk finds the average decrease in bp by using the R mean() function. **
 
 ```{r Average decrease in blood presure}
 #Find the average decrease across all patients
@@ -71,13 +79,17 @@ print(average_decrease)
 
 5 Determine which patients experienced a decrease in blood pressure after treatment (a positive change). Using which() function to just return the indices (and names) associated with this type of change.
 
+- **This chunk uses the R which() function to find Subjects that have observations greater than zero, signifying that they saw a positive change in blood pressure.**
+
 ```{r Positive reactions}
 #Return subjects that had a positive reaction to the treatment
-pos_reactions<-which(results<0)
+pos_reactions<-which(results>0)
 pos_reactions
 ```
 
 6.  Subset the vector of differences to only return those that have a positive change.
+
+- **This chunk subsets the results to only include those that had positive reactions to the treatment and stores them in a new vector.**
 
 ```{r Remove negative reactions}
 #new results store only subjects that have a positive reactions to treatments
@@ -87,6 +99,8 @@ new_results
 ```
 
 7.  Calculate the average decrease in blood pressure for those where the blood pressure decreased (positive change).
+
+- **This chunk finds the average change of the new results vector using the R mean() function.**
 
 ```{r Average of positive reactions}
 #Store new average
@@ -99,26 +113,35 @@ average_decrease_pos_reaction
 
 Continue the previous example.
 
-1.  Create a data frame object with four columns corresponding to your data above: patient, pre_bp, post_bp and diff_bp
+1.  Create a data frame object with four columns corresponding to your data above: patient, pre_bp, post_bp and diff_bp.
+
+- **This chunk creates data frame with 20 rows, and 4 variables. The 4 variables are the 4 vectors that were created earlier.**
 
 ```{r Create data frame}
 #Create a data frame from previous vectors
-df <- data.frame(row.names = 1:20, patient = names(measurement1),pre_bp = measurement1, 
-                 post_bp = measurement2, diff_bp = results)
+df <- data.frame(row.names = 1:20,
+                 patient = names(measurement1),
+                 pre_bp = measurement1,
+                 post_bp = measurement2,
+                 diff_bp = results)
 #Check
 print(df)
 ```
 
 2.  Return only rows where the diff_bp column is negative. (Use\[ or learn about the subset() function if you'd like. If you use \[, don't reference the original vector from the first part, access the column of the data frame when looking at making a comparison.)
 
+- **This chunk finds observations in the diff_bp variable that are less than 0, then prints out the data frame with out the rows that that contain the aforementioned observations.**
+
 ```{r Return only with negative observations}
 #Find which rows of variable diff_bp in df are greater than 0
-print(which(df$diff_bp>0))
+print(which(df$diff_bp<0))
 #print df with rows of variable diff_bp in df are greater than 0 removed
-df[-c(9,13,17),]
+print(df[-c(9,13,17),])
 ```
 
 3.  Add a new column to the data frame corresponding to TRUE if the post_bp is less than 120. Recall you can use \$ to access a column. If you reference a column that doesn’t exist, and save a vector (of appropriate length in it), that vector becomes a column of your data frame! Similar to the previous question, don’t reference the original vector from the first part, access the column of the data frame when looking at making a comparison.
+
+- **This chunk adds a variable to the data frame that returns TRUE or FALSE  based on whether the post_bp was less than 120 or not.** 
 
 ```{r}
 #add Boolean column where post_bp less than 120 
@@ -128,6 +151,8 @@ print(df)
 ```
 
 4.  Finally, print the data frame out nicely in your final document by modifying the code below appropriately.
+
+- **This prints a formatted data frame.**
 
 ```{r}
 knitr::kable(df)
@@ -146,6 +171,8 @@ after treatment, the subjects were measured again(subjects 1 through 10 match)
 -   105, 136, 123, 130, 134, 143, 135, 139, 120, 124
 
 1.  Create a new data frame with this data in it that is similar to the data frame from task 2 (including the new column).
+
+- **This chunk creates a new data frame with 10 rows and 4 variables. It then adds a variable of TRUE/FALSE.** 
 
 ```{r New subjects}
 #Creates a new data frame from the information provided
@@ -166,6 +193,8 @@ exp2_df
 
 -   1st element names treatment and contains the first data frame you created +2nd element named placebo and contains the second data frame you created
 
+- **This chunk creates a list using the two data frames that were previously created, and prints the list.**
+
 ```{r Create list}
 #Create a list of the two data frames
 my_list <- list(treatement = df,placebo =exp2_df)
@@ -174,6 +203,8 @@ print(my_list)
 ```
 
 3.  Access the first list element using three different types of syntax.
+
+- **This chunk uses three different ways to access the first element of the list. The first uses the list index, the second uses the name of the element, and the third uses "$".**
 
 ```{r Access from list}
 #access first element of list using [1] 
@@ -186,6 +217,8 @@ print(my_list$treatement)
 
 4.  In one line, access the placebo data frame, pre_bp.
 
+- **This chunk uses both "$" and a column name to access the pre_bp variable.**
+
 ```{r access placebo pre_bp}
 #use subsetting to access placebo pre_bp
 print(my_list$placebo["pre_bp"])
@@ -196,7 +229,7 @@ print(my_list$placebo["pre_bp"])
 
 Continue the previous example.
 
-1.  Suppose we want to characterize the post-treatment (or placebo) blood pressure measurement as optimal (\<= 120), borderline (120 \< bp \< 130), and high (\>130). First, create a new column in each data frame from above called status. You can do this via
+1.  Suppose we want to characterize the post-treatment (or placebo) blood pressure measurement as optimal (<= 120), borderline (120 < bp < 130), and high (>130). First, create a new column in each data frame from above called status. You can do this via
 
 ```{r eval = FALSE }
 your_df$status <- character(20) #or 10 depending on number of observations
@@ -204,11 +237,15 @@ your_df$status <- character(20) #or 10 depending on number of observations
 
 Note: You want to do this additional column to the data frames that are stored in your list (R doesn't do referencing to the original object).
 
+- **This chunk adds an empty variable named "status" to the treatment data frame within the list.**
+
 ```{r Create Status variable}
 my_list$treatement$status <- character(20) 
 ```
 
 2.  For the non-placebo data frame (within the list), create a for loop and use if/then/else logic to create the status column's values.
+
+- **This chunk combines a loop and an if/else if statement to populate the status variable. The loop will iterate 20 times (one for each row) while the if/else if statements will check the post_bp variable within the treatment data frame within the list and compare it to a value. based on the result of the comparison it will populate the status variable with "high", "optimal", "low", or "error".**
 
 ```{r Loop1}
 #create for loop with to run 20 times, evaluates i with conditions using if/else if and populates status
@@ -229,6 +266,8 @@ print(my_list$treatement[,c("post_bp", "status")])
 
 3.  Repeat for the placebo data frame (within the list).
 
+- **This chunk executes the same function as the previous chunk.**
+
 ```{r Loop2}
 #create for loop with to run 10 times, evaluates i with conditions using if/else if and populates status
 for (i in 1:10) {
@@ -248,7 +287,7 @@ print(my_list$placebo[,c("post_bp", "status")])
 
 ## Task 5: Function Writing
 
-Continue the previous example. Suppose you would eventually have many datasets in the form of the two above. You want to write a function to do some things for you quickly.
+Continue the previous example. Suppose you would eventually have many data sets in the form of the two above. You want to write a function to do some things for you quickly.
 
 1.  Write a function that
 
@@ -258,7 +297,7 @@ Continue the previous example. Suppose you would eventually have many datasets i
 
 -   Finds the statistic of interest (as defined by the user input) for the pre, post, and diff columns of both data frames
 
--   Use my_fun \<- get(stat) within the function to get the function from the quoted string.
+-   Use my_fun <- get(stat) within the function to get the function from the quoted string.
 
 -   these six values should then be returned as a named list with meaningful name - this is a somewhat challenging part.
 
@@ -268,39 +307,72 @@ Continue the previous example. Suppose you would eventually have many datasets i
 
 -   You can render the document to check things are looking good. Make sure that all code chunks show (and are evaluated). **Use headings to separate the sections.** Write text before each code chunk explaining what you are trying to do. Use markdown where appropriate (to create lists, bold things, etc.),
 
-```{r}
-display_stat_from_list <- function(the_list, stat = "mean"){
-  names(the_list)<- c("treatment",
-                      "placebo") 
-  my_fun <- get(stat)
-  stats <- c(1:6)
-  U_name <- c(" ")
-  for (i in 2:4) {
-    stats[i-1] <- my_fun(summary(the_list$treatment[,i]))
-    U_name[i-1] <- paste(names(the_list[1]),
-                         names(the_list$treatment[i]), 
-                         stat,
-                         sep = "_") 
-  }
-  for (i in 2:4) {
-    stats[i+2] <- my_fun(summary(the_list$placebo[,i]))
-    U_name[i+2] <- paste(names(the_list[2]),
-                         names(the_list$placebo[i]), 
-                         stat,
-                         sep = "_") 
-  }
-  names(stats) <- toupper(U_name)
-  return(stats)
-}
-print(display_stat_from_list(my_list))
-```
+- **This chunk creates a function that has two arguments. The first is a list of 2 data frames, and the second is a string that has "mean" as the default. The function then changes the names of the data frames in the list to "treatment" and "placebo". The function then creates the my_fun function using the R get() function. Next the function creates a numeric vector with 6 observations. Then it creates a character vector which will be used to populate the names of the stats vector. There are 2 nested loops with if/else if statements. The first nested loop is used the populate the stats vector. The outer loop is used to control which data frame ("treatment" or "placebo") in the list the inner loop is accessing. The inner loop is used to control which variable ("pre_bp", "post_bp", or "diff_bp") in the data frame is used. The if/else statement determines which method is used to populate the stats vector. The second loop operates the same way but populates the U_name vector using the R paste() function. Following the loops the function capitalized the U_names elements and assigns them as names to the stats vector. Finally the function returns the stats vector.** 
 
 ```{r}
-#test function
-print(display_stat_from_list(my_list))
-print(display_stat_from_list(my_list,"var"))
-print(display_stat_from_list(my_list,"sd"))
-print(display_stat_from_list(my_list,"min"))
-print(display_stat_from_list(my_list,"max"))
+#create function
+display_stat <- function(the_list, stat = "mean"){
+  #Name elements of list
+  names(the_list)<- c("treatment",
+                      "placebo")
+  #Create get function that the user will define when calling the function
+  my_fun <- get(stat)
+  #Create stats vector
+  stats <- c(1:6)
+  #Create U_name vector
+  U_name <- c(" ")
+  #for loop to control which data frame in the list is used
+  for (i in 1:2) {
+    #for loop to control which variable in the data frame is used 
+    for (j in 2:4) {
+      #if/else statement to tell which method to use to populate stats vector
+      if(i ==1){
+        #fills stats vector elements from 1 to 3
+        #uses my_fun and summary to access list element 1 variables 2 through 4 and return the statistic of interest
+      stats[i*(j-1)]<-my_fun(summary(the_list[[i]][,j]))
+      } else if(i==2){
+        stats[i+j]<-my_fun(summary(the_list[[i]][,j]))
+        }
+    }
+  }
+  #for loop to control which variable in the data frame is used 
+  for (i in 1:2) {
+    #for loop to control which variable in the data frame is used 
+    for (j in 2:4) {
+      #if/else statement to tell which method to use to populate stats vector
+      if (i == 1){
+        #fills U_name using the paste function
+         U_name[j-1] <- paste(names(the_list[1]),
+                         names(the_list$treatment[j]), 
+                         stat,
+                         sep = "_")
+      } else {
+         U_name[i+j] <- paste(names(the_list[2]),
+                         names(the_list$treatment[j]), 
+                         stat,
+                         sep = "_") 
+      }
+    }
+  }
+  #Capitalizes U_name elements and assigns them as names to elements of the stats vector
+  names(stats) <- toupper(U_name)
+  #returns the stats vector
+  return(stats)
+}
+#Test the function
+print(display_stat(my_list))
+```
+- **This chunk uses the custom function to find mean, variation, standard deviation, minimum, maximum of the elements of the my_list.**
+```{r}
+#test function default
+print(display_stat(my_list))
+#test function for variation
+print(display_stat(my_list,"var"))
+#test function for standard deviation
+print(display_stat(my_list,"sd"))
+##test function for minimum
+print(display_stat(my_list,"min"))
+#test function for maximum
+print(display_stat(my_list,"max"))
 ```
 
